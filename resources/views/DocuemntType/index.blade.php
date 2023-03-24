@@ -75,15 +75,19 @@
                 <td>{{$documentType->id}}</td>
                 <td>{{$documentType->name}}</td>
                 <td>
-                  <form action="{{ route('documentType.destroy', $documentType) }}" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input 
-                      type="submit" 
-                      value="Eliminar" 
-                      class="btn btn-danger"
-                      onclick="return confirm('¿Desea eliminar...?')">
-                  </form>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-info edit-document-type" data-id="{{$documentType->id}}" >Editar</button>
+
+                    <form action="{{ route('documentType.destroy', $documentType) }}" method="POST">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <input 
+                        type="submit" 
+                        value="Eliminar" 
+                        class="btn btn-danger"
+                        onclick="return confirm('¿Desea eliminar...?')">
+                    </form>
+                  </div>
                 </td>
               </tr>
                 @if (Session::has('message'))
@@ -100,16 +104,8 @@
                   <h5 class="modal-title" id="exampleModalLabel">NUEVO TIPO DE DOCUMENTO</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('documentType.store') }}" method="POST">
-                      <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Tipo De Documento</label>
-                        <input type="text" name = "name" class="form-control" id="exampletext" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">Ingresa aqui el nuevo tipo de documento.</div>
-                      </div>
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <button type="submit" class="btn btn-success">Crear</button>
-                    </form>
+                <div class="modal-body" id="form-container">
+                  @include('docuemntType.form')
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,5 +121,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
+    
+    <script src="{{ asset('js/documentType.js?') }} {{ time() }}" type="text/javascript"></script>    
   </body>
 </html>

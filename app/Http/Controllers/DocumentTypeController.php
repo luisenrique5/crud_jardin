@@ -45,5 +45,15 @@ class DocumentTypeController extends Controller
         Session::flash('message', "usted a eliminado un usuario");
         return back();
     } 
+
+    public function edit($id){
+        $documentsType = DocumentType::find($id);
+
+        $returnHTML = view('DocuemntType.form',[
+                'documentType' => $documentsType
+            ])->render();
+
+        return response()->json(['success' => true, 'html'=>$returnHTML]);
+    }
     
 }
