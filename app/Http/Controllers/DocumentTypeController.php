@@ -21,9 +21,15 @@ class DocumentTypeController extends Controller
     
     public function store(Request $request)
     {
+        $messages = [
+            'name.required' => 'El campo nombre es requerido.',
+            'name.alpha' => 'El campo debe tener solo letras',
+            'name.min' => 'El campo debe tener como minimo 5 caracteres',
+            'name.unique' => 'El campo debe ser unico'
+        ];
         $request->validate([
-            'name'      =>['required'],
-        ]);
+            'name'      => 'required|alpha|min:5|unique:DocumentsTypes',
+        ], $messages);
 
         DocumentType::create([
             'name'=> $request->name,

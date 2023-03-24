@@ -50,6 +50,15 @@
       <br>
       <div class="card border-0 shadow">
         <div class="card-body">
+          @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
           <table class="table">
             <thead>
               <tr>
@@ -83,46 +92,34 @@
               @endforeach
             </tbody>
           </table>
-          <form action="">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Tipo De Documento</button>
-            
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                      <i class="fas fa-envelope prefix grey-text"></i>
-                      <input type="email" id="defaultForm-email" class="form-control validate">
-                      <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
-                    </div>
-
-                    <div class="md-form mb-4">
-                      <i class="fas fa-lock prefix grey-text"></i>
-                      <input type="password" id="defaultForm-pass" class="form-control validate">
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-                    </div>
-
-                  </div>
-                  <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-default">Login</button>
-                  </div>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Tipo De Documento</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">NUEVO TIPO DE DOCUMENTO</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('documentType.store') }}" method="POST">
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tipo De Documento</label>
+                        <input type="text" name = "name" class="form-control" id="exampletext" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Ingresa aqui el nuevo tipo de documento.</div>
+                      </div>
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <button type="submit" class="btn btn-success">Crear</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
-            
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div> 
+    </div>
 
     
 
