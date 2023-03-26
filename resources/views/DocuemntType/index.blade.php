@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TIPO DE DOCUMENTOS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   </head>
   <body>
     <div class="container">
@@ -23,22 +25,29 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <h5><a class="nav-link active" aria-current="page" href="/public"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                  </svg> Usuarios</a></h5>
+                  <h5>
+                    <a class="nav-link active" aria-current="page" href="/public"> 
+                      <i class="bi bi-people-fill"></i>
+                        Usuarios
+                    </a>
+                  </h5>
                 </li>
                 <li class="nav-item">
-                 <h5><a class="nav-link active" aria-current="page" href="/public/DocumentType"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
-                    <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
-                    <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                  </svg> Tipos De Documentos</a></h5>
+                 <h5>
+                    <a class="nav-link active" aria-current="page" href="/public/DocumentType">
+                        <i class="bi bi-person-badge"></i>
+                        Tipos De Documentos
+                    </a>
+                  </h5>
                 </li>
                 <li class="nav-item">
-                  <h5><a class="nav-link active" aria-current="page" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-rolodex" viewBox="0 0 16 16">
-                    <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                    <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z"/>
-                  </svg> Roles</a></h5>
-                </li>
+                  <h5>
+                     <a class="nav-link active" aria-current="page" href="/public/DocumentType">
+                      <i class="bi bi-person-fill-gear"></i>
+                         Roles
+                     </a>
+                   </h5>
+                 </li>                
               </ul>
             </div>
           </div>
@@ -58,60 +67,30 @@
                     @endforeach
                 </ul>
             </div>
+            @if (Session::has('message'))
+              <div class="alert alert-info">{{ Session::get('message') }}</div>
+            @endif
         @endif
-          <table class="table">
+          <table class="table table-hover">
             <thead>
               <tr>
-                <h3><th>ID</th></h3>
-                <h3><th>Nombre</th></h3>
+                <th>ID</th>
+                <th>Nombre</th>
                 <th>
+                  
+                    Acciones
+                    <button type="button" class="btn btn-primary" id="create-document-type">
+                      <i class="bi bi-plus-circle-fill"></i>
+                    </button>
                   
                 </th>
               </tr>
             </thead>
-            <tbody>
-              @foreach ($documentsTypes as $documentType)
-              <tr>
-                <td>{{$documentType->id}}</td>
-                <td>{{$documentType->name}}</td>
-                <td>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-info edit-document-type" data-id="{{$documentType->id}}" >Editar</button>
+            <tbody id="table-document-type">
 
-                    <form action="{{ route('documentType.destroy', $documentType) }}" method="POST">
-                      <input type="hidden" name="_method" value="DELETE">
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input 
-                        type="submit" 
-                        value="Eliminar" 
-                        class="btn btn-danger"
-                        onclick="return confirm('¿Desea eliminar...?')">
-                    </form>
-                  </div>
-                </td>
-              </tr>
-                @if (Session::has('message'))
-                  <div class="alert alert-info">{{ Session::get('message') }}</div>
-                @endif
-              @endforeach
             </tbody>
           </table>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Tipo De Documento</button>
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">NUEVO TIPO DE DOCUMENTO</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="form-container">
-                  @include('docuemntType.form')
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+          <div id="form-container">
           </div>
         </div>
       </div>
@@ -125,7 +104,8 @@
       src="https://code.jquery.com/jquery-3.6.4.js"
       integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
       crossorigin="anonymous"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/loading/loading.js') }} " type="text/javascript"></script> 
     <script src="{{ asset('js/documentType.js?') }} {{ time() }}" type="text/javascript"></script>    
   </body>
 </html>

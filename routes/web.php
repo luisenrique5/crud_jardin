@@ -21,4 +21,6 @@ Route::delete('users/{user}','usercontroller@destroy')->name('users.destroy');
 Route::get('/DocumentType','DocumentTypeController@index')->name('documentType.index');
 Route::post('DocumentsTypes', 'DocumentTypeController@store')->name('documentType.store');
 Route::get('DocumentsTypes/edit/{id}', 'DocumentTypeController@edit')->name('documentType.edit');
+Route::post('DocumentsTypes/update', 'DocumentTypeController@update')->name('documentType.update');
 Route::delete('DocumentsTypes/{documentType}', 'DocumentTypeController@destroy')->name('documentType.destroy');
+Route::get('DocumentsTypes/read', 'DocumentTypeController@read')->name('documentType.read');
