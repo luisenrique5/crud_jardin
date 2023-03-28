@@ -33,7 +33,7 @@ class UsersRols extends Migration
     {
         Schema::table('UsersRols', function (Blueprint $table) {
             $table->dropForeign('UserForeign');
-            $table->dropColumn('RolForeign');
+            $table->dropForeign('RolForeign');
         });
         Schema::dropIfExists('UsersRols');
     }
