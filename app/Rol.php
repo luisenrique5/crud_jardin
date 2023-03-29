@@ -10,7 +10,7 @@ class Rol extends Model
 
     protected $primarykey = 'id';
     
-    protected $fillable = 'name';
+    protected $fillable = ['name'];
 
     public function UserRol()
     {

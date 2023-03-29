@@ -8,15 +8,9 @@ use Illuminate\Support\Facades\Session;
 
 class DocumentTypeController extends Controller
 {
-    
-
-    public function getAll(){
-        return DocumentType::all();
-    }
-
     public function index()
     {
-        $documentsTypes = $this->getAll();
+        $documentsTypes = DocumentType::all();
 
         return view('DocuemntType.index',[
             'documentsTypes' => $documentsTypes
@@ -25,7 +19,7 @@ class DocumentTypeController extends Controller
     
     public function read()
     {
-        $documentsTypes = $this->getAll();
+        $documentsTypes = DocumentType::all();
 
         $returnHTML =view('DocuemntType.table',[
             'documentsTypes' => $documentsTypes
@@ -104,37 +98,37 @@ class DocumentTypeController extends Controller
     }
 
     public function destroy(Request $request, $id)
-{
-    $documentType = DocumentType::find($id);
+    {
+        $documentType = DocumentType::find($id);
 
-    if ($documentType) {
-        $documentType->delete();
-        if ($request->ajax()) {
-            return response()->json([
-                'title' => '¡Eliminación exitosa!',
-                'html' => 'El tipo de documento ha sido eliminado exitosamente',
-                'icon' => 'success'
-            ]);
+        if ($documentType) {
+            $documentType->delete();
+            if ($request->ajax()) {
+                return response()->json([
+                    'title' => '¡Eliminación exitosa!',
+                    'html' => 'El tipo de documento ha sido eliminado exitosamente',
+                    'icon' => 'success'
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'El tipo de documento ha sido eliminado exitosamente',
+                    'html' => view('documentType.table')->render(),
+                ]);
+                
+            }
         } else {
-            return response()->json([
-                'success' => true,
-                'message' => 'El tipo de documento ha sido eliminado exitosamente',
-                'html' => view('documentType.table')->render(),
-            ]);
-            
-        }
-    } else {
-        if ($request->ajax()) {
-            return response()->json([
-                'title' => '¡Error!',
-                'html' => 'El tipo de documento no existe',
-                'icon' => 'error'
-            ]);
-        } else {
-            return redirect()->route('documentType.index')->with('error', 'El tipo de documento no existe');
+            if ($request->ajax()) {
+                return response()->json([
+                    'title' => '¡Error!',
+                    'html' => 'El tipo de documento no existe',
+                    'icon' => 'error'
+                ]);
+            } else {
+                return redirect()->route('documentType.index')->with('error', 'El tipo de documento no existe');
+            }
         }
     }
-}
 
 
     public function edit($id)

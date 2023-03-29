@@ -1,20 +1,21 @@
 $(function () {
   refreshTable();
-  $(document).on("click", "#create-document-type", function () {
-    var id = -1;
-    $.get(
-      `https://localhost:412/public/DocumentsTypes/edit/${id}`,
-      function (data) {
-        $("#form-container").html(data.html);
-        $("#exampleModal").modal("show");
-      }
-    );
-  });
-
-  $(document).on("click", ".edit-document-type", function () {
+  $(document).on("click", "#create-users", function () {
     var id = $(this).data("id");
     $.get(
-      `https://localhost:412/public/DocumentsTypes/edit/${id}`,
+      `https://localhost:412/public/users/edit/${id}`,
+      function (data) {
+        $("#form-container").html(data.html);
+        $("#exampleModal").modal("show");
+        $('.selectpicker').selectpicker('refresh');
+      }
+    );
+  });
+
+  $(document).on("click", ".edit-users", function () {
+    var id = $(this).data("id");
+    $.get(
+      `https://localhost:412/public/users/edit/${id}`,
       function (data) {
         $("#form-container").html(data.html);
         $("#exampleModal").modal("show");
@@ -22,7 +23,7 @@ $(function () {
     );
   });
 
-  $(document).on("click", "#save-document-type", function () {
+  $(document).on("click", "#save-users", function () {
     var form = $(this).closest("form");
     var url = form.attr("action");
     var datos = form.serializeArray();
@@ -75,14 +76,14 @@ $(function () {
     $("body").loading({
       message: "Cargando Datos",
     });
-    $.get(`https://localhost:412/public/DocumentsTypes/read`, function (data) {
+    $.get(`https://localhost:412/public/users/read`, function (data) {
       $("body").loading("stop");
-      $("#table-document-type").html(data.html);
+      $("#table-users").html(data.html);
     });
   }
 
   // Se define el evento click para los botones de eliminación de documentos
-  $(document).on("click", ".delete-document-type", function () {
+  $(document).on("click", ".delete-users", function () {
     // Se obtiene el ID del documento que se va a eliminar
     var id = $(this).data("id");
 
@@ -100,7 +101,7 @@ $(function () {
 
             // Si el usuario confirma la eliminación, se envía una solicitud AJAX al servidor
             $.ajax({
-                url: "/DocumentsTypes/destroy/" + id,
+                url: "/users/destroy/" + id,
                 type: "DELETE",
                 data: {
                     _token: csrfToken,
@@ -118,9 +119,9 @@ $(function () {
                     $("body").loading({
                       message: "Cargando Datos",
                     });
-                    $.get(`https://localhost:412/public/DocumentsTypes/read`, function (data) {
+                    $.get(`https://localhost:412/public/users/read`, function (data) {
                       $("body").loading("stop");
-                      $("#table-document-type").html(data.html);
+                      $("#table-users").html(data.html);
                     });
                 },
                 error: function (data) {
@@ -138,6 +139,7 @@ $(function () {
     });
   });
 });
+
 
 
 

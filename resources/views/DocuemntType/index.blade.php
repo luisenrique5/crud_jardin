@@ -43,7 +43,7 @@
                 </li>
                 <li class="nav-item">
                   <h5>
-                     <a class="nav-link active" aria-current="page" href="/public/DocumentType">
+                     <a class="nav-link active" aria-current="page" href="/public/Roles">
                       <i class="bi bi-person-fill-gear"></i>
                          Roles
                      </a>

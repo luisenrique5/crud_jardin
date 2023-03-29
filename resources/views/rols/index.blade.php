@@ -6,19 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>TIPO DE DOCUMENTOS</title>
-        <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   </head>
   <body>
     <div class="container">
       <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">VISTA DE USUARIOS</a>
+          <a class="navbar-brand" href="#">VISTA DE ROLES</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,7 +28,7 @@
                 <li class="nav-item">
                   <h5>
                     <a class="nav-link active" aria-current="page" href="/public"> 
-                      <i class="fa fa-user-circle" aria-hidden="true"></i>
+                      <i class="bi bi-people-fill"></i>
                         Usuarios
                     </a>
                   </h5>
@@ -40,7 +36,7 @@
                 <li class="nav-item">
                  <h5>
                     <a class="nav-link active" aria-current="page" href="/public/DocumentType">
-                      <i class="fa fa-address-book" aria-hidden="true"></i>
+                        <i class="bi bi-person-badge"></i>
                         Tipos De Documentos
                     </a>
                   </h5>
@@ -48,7 +44,7 @@
                 <li class="nav-item">
                   <h5>
                      <a class="nav-link active" aria-current="page" href="/public/Roles">
-                      <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                      <i class="bi bi-person-fill-gear"></i>
                          Roles
                      </a>
                    </h5>
@@ -79,20 +75,19 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Documento</th>
+                <th>ID</th>
                 <th>Nombre</th>
-                <th>Correo</th>
                 <th>
                   
                     Acciones
-                    <button type="button" class="btn btn-primary" id="create-users">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-primary" id="create-rols">
+                      <i class="bi bi-plus-circle-fill"></i>
                     </button>
                   
                 </th>
               </tr>
             </thead>
-            <tbody id="table-users">
+            <tbody id="table-rols">
 
             </tbody>
           </table>
@@ -104,13 +99,14 @@
 
     
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/loading/loading.js') }} " type="text/javascript"></script> 
-    <script src="{{ asset('js/users.js?') }} {{ time() }}" type="text/javascript"></script>    
+    <script src="{{ asset('js/rols.js?') }} {{ time() }}" type="text/javascript"></script>    
   </body>
 </html>

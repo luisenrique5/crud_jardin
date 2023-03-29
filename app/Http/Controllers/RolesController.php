@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\DocumentType;
 use App\Rol;
-use Illuminate\Hashing\BcryptHasher;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class RolesController extends Controller
 {
     public function index()
     {
+        $rols = Rol::all();
         
-        $users = User::all();
-        
-       
-        return view('users.index', [
-            'users' => $users
+        return view('rols.index', [
+            'rols' => $rols
         ]);
     }
 
     public function read()
     {
-        $users = User::all();
+        $rols = Rol::all();
 
-        $returnHTML = view('users.table', [
-            'users' => $users
+        $returnHTML = view('rols.table', [
+            'rols' =>  $rols 
         ])->render();
 
         return response()->json(['success' => true, 'html' => $returnHTML]);
@@ -36,23 +30,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'nickname.required' => 'El campo :attribute es requerido.',
-            'email.required' => 'El campo :attribute es requerido.',
-            'email.unique' => 'El campo :attribute ya ha sido registrado.',
-            'email.email' => 'El campo :attribute debe ser un correo.',
-            'password.required' => 'El campo :attribute es requerido.',
+            'name.required' => 'El campo :attribute es requerido.',
+            'name.alpha' => 'El campo :attribute debe tener solo letras',
+            'name.min' => 'El campo :attribute debe tener como minimo 5 caracteres',
+            'name.unique' => 'El campo :attribute debe ser unico'
         ];
         $request->validate([
-            'nickname' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'name'      => 'required|alpha|min:5|unique:Rols',
         ], $messages);
 
-        dd($request->all());
-        $user = new User();
-        $data = $request->only($user->getFillable());
-        $data ['password'] = bcrypt($request->password);
-        $guardo = $user->fill($data)->save();
+        $rols = new Rol();
+        $data = $request->only($rols->getFillable());
+        $guardo = $rols->fill($data)->save();
 
 
         if ($guardo) {
@@ -68,20 +57,17 @@ class UserController extends Controller
                 'title' => '!Algo salió mal!'
             ];
         }
+
         return response()->json($mensaje);
     }
 
     public function edit($id)
     {
-        $user = User::find($id);
-        $documentsTypes = DocumentType::all()->pluck('name','id')->toArray();
-        $rols = Rol::all()->pluck('name', 'id')->toArray();
+        $rols = Rol::find($id);
 
-        $returnHTML = view('users.form', [
-            'documentsTypes' => $documentsTypes,
-            'rols' => $rols,
-            'user' => $user,
-            'action' => route('users.update')
+        $returnHTML = view('rols.form', [
+            'rol' => $rols,
+            'action' => route('rols.update')
         ])->render();
 
         return response()->json(['success' => true, 'html' => $returnHTML]);
@@ -90,20 +76,18 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $messages = [
-            'nickname.required' => 'El campo :attribute es requerido.',
-            'email.required' => 'El campo :attribute es requerido.',
-            'email.email' => 'El campo :attribute debe ser un correo.',
-            'password.required' => 'El campo :attribute es requerido.',
+            'name.required' => 'El campo :attribute es requerido.',
+            'name.alpha' => 'El campo :attribute debe tener solo letras',
+            'name.min' => 'El campo :attribute debe tener como minimo 5 caracteres',
+            'name.unique' => 'El campo :attribute debe ser unico'
         ];
         $request->validate([
-            'nickname' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'name'      => 'required|alpha|min:5|unique:Rols',
         ], $messages);
 
-        $user = User::find($request->id);
-        $data = $request->only($user->getFillable());
-        $guardo = $user->fill($data)->save();
+        $rols = Rol::find($request->id);
+        $data = $request->only($rols->getFillable());
+        $guardo = $rols->fill($data)->save();
 
         if ($guardo) {
             $mensaje = [
@@ -123,10 +107,10 @@ class UserController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $user = User::find($id);
+        $rols = Rol::find($id);
 
-        if ($user) {
-            $user->delete();
+        if ($rols) {
+            $rols->delete();
             if ($request->ajax()) {
                 return response()->json([
                     'title' => '¡Eliminación exitosa!',
@@ -137,7 +121,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'El usuario ha sido eliminado exitosamente',
-                    'html' => view('users.table')->render(),
+                    'html' => view('rols.table')->render(),
                 ]);
                 
             }
@@ -149,8 +133,9 @@ class UserController extends Controller
                     'icon' => 'error'
                 ]);
             } else {
-                return redirect()->route('users.index')->with('error', 'El usuario no existe');
+                return redirect()->route('rols.index')->with('error', 'El usuario no existe');
             }
         }
     }
 }                
+
