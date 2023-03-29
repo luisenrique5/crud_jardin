@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function DocumentType()
     {
-        return $this->belongsTo('App\DocumentType', 'id', 'idDocumentsTypes');
+        return $this->belongsTo('App\DocumentType', 'idDocumentsTypes', 'id');
     }
 
     public function UserRol()
@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function Rol()
     {
-        return $this->belongsToMany('App\Rol', 'UserRol', 'idUsers', 'idRol');
+        return $this->belongsToMany('App\Rol', 'UsersRols', 'idUsers', 'idRol')->withPivot(['name']);
     }
 }

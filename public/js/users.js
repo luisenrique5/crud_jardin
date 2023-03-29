@@ -19,6 +19,7 @@ $(function () {
       function (data) {
         $("#form-container").html(data.html);
         $("#exampleModal").modal("show");
+        $('.selectpicker').selectpicker('refresh');
       }
     );
   });

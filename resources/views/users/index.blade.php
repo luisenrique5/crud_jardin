@@ -16,22 +16,15 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-dark bg-dark fixed-top">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">VISTA DE USUARIOS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">VISTAS</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
+            <div class="nav navbar-nav">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
                   <h5>
-                    <a class="nav-link active" aria-current="page" href="/public"> 
+                    <a class="navbar-brand" aria-current="page" href="/public"> 
                       <i class="fa fa-user-circle" aria-hidden="true"></i>
                         Usuarios
                     </a>
@@ -39,7 +32,7 @@
                 </li>
                 <li class="nav-item">
                  <h5>
-                    <a class="nav-link active" aria-current="page" href="/public/DocumentType">
+                    <a class="navbar-brand" aria-current="page" href="/public/DocumentType">
                       <i class="fa fa-address-book" aria-hidden="true"></i>
                         Tipos De Documentos
                     </a>
@@ -47,7 +40,7 @@
                 </li>
                 <li class="nav-item">
                   <h5>
-                     <a class="nav-link active" aria-current="page" href="/public/Roles">
+                     <a class="navbar-brand" aria-current="page" href="/public/Roles">
                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
                          Roles
                      </a>
@@ -80,7 +73,9 @@
             <thead>
               <tr>
                 <th>Documento</th>
+                <th>Tipo Documento</th>
                 <th>Nombre</th>
+                <th>Roles</th>
                 <th>Correo</th>
                 <th>
                   

@@ -25,24 +25,30 @@
 
               @endforeach
           </select>
-        
           </div>
+
           <div class="mb-3">
             <label for="nickname" class="form-label">Nombre</label>
             <input type="text" name = "nickname" class="form-control" value="{{isset($user) ? $user->nickname : null}}" placeholder="Nombre">
-        
           </div>
+          @php
+              //dd($user->UserRol);
+              $rolesusuario =isset($user)? $user->UserRol->pluck('idRol')->toArray():[];
+          @endphp
           <div class="mb-3">
             <label for="document" class="form-label">Cual es tu Rol</label>
-            <select class="selectpicker form-control" multiple name="idRol[]" data-show-subtext="true" data-live-search="true" aria-placeholder="Seleccione un tipo de Documento">
+            <select class="selectpicker form-control" multiple name="idRol[]" data-show-subtext="true" data-live-search="true">
               @foreach ($rols as $key=>$rol)
-                
-                <option value="{{$key}}">{{$rol}}</option>
+                @php
+                    $selected = in_array($key,$rolesusuario);
+                @endphp
+                <option value="{{$key}}" @if($selected) selected @endif >{{$rol}}</option>
                 
 
               @endforeach
             </select>
           </div>
+          
           <div class="mb-3">
             <label for="email" class="form-label">Correo</label>
             <input type="email" name = "email" class="form-control" value="{{isset($user) ? $user->email : null}}" placeholder="Correo Electronico">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\DocumentType;
 use App\Rol;
+use App\UserRol;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -48,14 +49,16 @@ class UserController extends Controller
             'password' => 'required',
         ], $messages);
 
-        dd($request->all());
         $user = new User();
         $data = $request->only($user->getFillable());
         $data ['password'] = bcrypt($request->password);
         $guardo = $user->fill($data)->save();
 
-
+        
         if ($guardo) {
+            $roles = $request->idRol;
+            $user->Rol()->sync($roles);
+            
             $mensaje = [
                 'icon' => 'success',
                 'html' => 'Se creó el usuario',
@@ -104,8 +107,11 @@ class UserController extends Controller
         $user = User::find($request->id);
         $data = $request->only($user->getFillable());
         $guardo = $user->fill($data)->save();
-
+        
         if ($guardo) {
+            $roles = $request->idRol;
+            $user->Rol()->sync($roles);
+            
             $mensaje = [
                 'icon' => 'success',
                 'html' => 'Se actualizó el usuario',
