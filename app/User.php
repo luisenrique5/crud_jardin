@@ -32,18 +32,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function DocumentType()
+    public function documentType()
     {
         return $this->belongsTo('App\DocumentType', 'idDocumentsTypes', 'id');
     }
 
-    public function UserRol()
+    public function userRol()
     {
         return $this->hasMany('App\UserRol', 'idUsers', 'id');
     }
 
-    public function Rol()
+    public function rols()
     {
-        return $this->belongsToMany('App\Rol', 'UsersRols', 'idUsers', 'idRol')->withPivot(['name']);
+        return $this->belongsToMany('App\Rol', 'UsersRols', 'idUsers', 'idRol');
     }
 }

@@ -2,75 +2,132 @@ $(function () {
   refreshTable();
   $(document).on("click", "#create-users", function () {
     var id = $(this).data("id");
-    $.get(
-      `https://localhost:412/public/users/edit/${id}`,
-      function (data) {
-        $("#form-container").html(data.html);
-        $("#exampleModal").modal("show");
-        $('.selectpicker').selectpicker('refresh');
-      }
-    );
+    mostrarModalUsuario(id);
   });
 
   $(document).on("click", ".edit-users", function () {
     var id = $(this).data("id");
+    mostrarModalUsuario(id);
+  });
+
+  function mostrarModalUsuario(id){
+    
     $.get(
       `https://localhost:412/public/users/edit/${id}`,
       function (data) {
         $("#form-container").html(data.html);
         $("#exampleModal").modal("show");
         $('.selectpicker').selectpicker('refresh');
+        validarForm("#formulario");
       }
     );
-  });
+  }
 
-  $(document).on("click", "#save-users", function () {
-    var form = $(this).closest("form");
-    var url = form.attr("action");
-    var datos = form.serializeArray();
-    $.post(url, datos)
-      .done(function (data) {
-        $("#exampleModal").modal("hide");
-        Swal.fire({
-          title: data.title,
-          html: data.html,
-          icon: data.icon,
-          showConfirmButton: false,
-          timer: 2000,
-        });
-        refreshTable();
-      })
-      .fail(function (data) {
-        if (data.status == 422) {
-          let errores = `<ol>`;
-          console.log(data.responseJSON.errors);
-
-          // código que se ejecuta si la solicitud no se completa correctamente
-          for (var field in data.responseJSON.errors) {
-            var errors = data.responseJSON.errors[field];
-            for (var i = 0; i < errors.length; i++) {
-              var error = errors[i];
-              errores += `<li>${error}</li>`;
+  function validarForm(id,ignorar = ":hidden"){
+      $(id).validate().destroy();	
+        $(id).validate({ 
+          debug: true,
+          ignore: ignorar, 
+          rules: {
+            nickname: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
             }
-          }
-          errores += `</ol>`;
+        },
+        messages: {
+            nickname: {
+                required: "El campo es requerido."
+            },
+            email: {
+                required: "El campo es requerido.",
+                email: "El campo debe ser un correo."
+            },
+            password: {
+                required: "El campo es requerido."
+            }
+        },
+        errorPlacement : function(error, element) {
+          $(element).siblings('.invalid-feedback ').html(error.html());          
+        },
+        highlight : function(element) {
+          //$(element).closest('.invalid-feedback').removeClass('has-info').addClass('has-error');
+          $(element).siblings('.invalid-feedback ').removeClass('has-info').addClass('has-error');
+          $(element).removeClass('has-info').addClass('has-error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+          $(element).siblings('.invalid-feedback ').removeClass('has-error').addClass('has-info');
+          $(element).removeClass('has-error').addClass('has-info');
 
-          Swal.fire({
-            title: `¡Algo salió Mal!`,
-            html: `Errores en los campos:<br> ${errores}`,
-            icon: `error`,
-            showConfirmButton: true,
-          });
-        } else if (data.status == 500) {
-          Swal.fire({
-            title: `¡Algo salió Mal!`,
-            html: `Ha ocurrido un error en el servidor, contacte al soporte de Pandora`,
-            icon: `error`,
-            showConfirmButton: false,
-            timer: 3000,
-          });
-        }
+          $(element).siblings('.invalid-feedback ').find('.input-clase').html('');
+        }    
       });
+  }
+
+  
+  $(document).on("click", "#save-users", function () {
+    if ($("#formulario").valid()) {
+      var form = $(this).closest("form");
+      var url = form.attr("action");
+      var datos = form.serializeArray();
+      $.post(url, datos)
+        .done(function (data) {
+          $("#exampleModal").modal("hide");
+          Swal.fire({
+            title: data.title,
+            html: data.html,
+            icon: data.icon,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          refreshTable();
+        })
+        .fail(function (data) {
+          if (data.status == 422) {
+            let errores = `<ol>`;
+            console.log(data.responseJSON.errors);
+  
+            // código que se ejecuta si la solicitud no se completa correctamente
+            for (var field in data.responseJSON.errors) {
+              var errors = data.responseJSON.errors[field];
+              for (var i = 0; i < errors.length; i++) {
+                var error = errors[i];
+                errores += `<li>${error}</li>`;
+              }
+            }
+            errores += `</ol>`;
+  
+            Swal.fire({
+              title: `¡Algo salió Mal!`,
+              html: `Errores en los campos:<br> ${errores}`,
+              icon: `error`,
+              showConfirmButton: true,
+            });
+          } else if (data.status == 500) {
+            Swal.fire({
+              title: `¡Algo salió Mal!`,
+              html: `Ha ocurrido un error en el servidor, contacte al soporte de Pandora`,
+              icon: `error`,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          }
+        });
+    }else{
+      Swal.fire({
+        title: `¡Algo salió Mal!`,
+        html: `valida los campos, porfavor!!!!`,
+        icon: `error`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+   
   });
 
   function refreshTable() {
@@ -136,7 +193,7 @@ $(function () {
                     });
                 },
             });
-        }
+          }
     });
   });
 });

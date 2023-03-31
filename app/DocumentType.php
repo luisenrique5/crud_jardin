@@ -12,7 +12,7 @@ class DocumentType extends Model
 
     protected $fillable = ['name'];
 
-    public function User()
+    public function user()
     {
         return $this->hasMany('App\User', 'idDocumentsTypes', 'id');
     }

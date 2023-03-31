@@ -77,6 +77,7 @@
               <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Usuarios</th>
                 <th>
                   
                     Acciones

@@ -12,13 +12,13 @@ class Rol extends Model
     
     protected $fillable = ['name'];
 
-    public function UserRol()
+    public function userRol()
     {
         return $this->hasMany('App\UserRol', 'idRol', 'id');
     }
 
-    public function User ()
+    public function user()
     {
-        return $this->belongsToMany('App\User ', 'UsersRols', 'idUsers', 'idRol');
+        return $this->belongsToMany('App\User', 'UsersRols','idRol','idUsers');
     }
 }

@@ -57,7 +57,7 @@ class UserController extends Controller
         
         if ($guardo) {
             $roles = $request->idRol;
-            $user->Rol()->sync($roles);
+            $user->rols()->sync($roles);
             
             $mensaje = [
                 'icon' => 'success',
