@@ -1,10 +1,35 @@
-.has-info{
-  color: blue;
+/* Estilo para campos requeridos */
+input:required {
+  border: 1px solid #ced4da;
+  background-color: #fff;
 }
 
-.has-error{
-  color: red;
-  border: 2px solid red;
+/* Estilo para campos con errores */
+input.has-error {
+  border: 1px solid #dc3545;
+  background-color: #f8d7da;
+  color: #dc3545;
 }
 
+/* Estilo para mensajes de error */
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
+/* Estilo para campos completados correctamente */
+input.has-info {
+  border: 1px solid #28a745;
+  background-color: #c3e6cb;
+  color: #28a745;
+}
+
+/* Estilo para mensajes de éxito */
+.valid-feedback {
+  display: block;
+  color: #28a745;
+  font-size: 14px;
+  margin-top: 5px;
+}

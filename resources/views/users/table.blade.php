@@ -2,7 +2,7 @@
   <tr>
     <td>{{$user->document}}</td>
     <td>{{$user->DocumentType->name}}</td>
-    <td>{{$user->nickname}}</td>
+    <td>{{$user->nickname}}</td> 
     <td>
       <ul>
         @foreach ($user->rols as $rol)

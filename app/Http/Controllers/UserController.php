@@ -37,6 +37,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $messages = [
+            'document.required' => 'El campo :attribute es requerido.',
+            'document.unique' => 'El campo :attribute ya ha sido registrado.',
             'nickname.required' => 'El campo :attribute es requerido.',
             'email.required' => 'El campo :attribute es requerido.',
             'email.unique' => 'El campo :attribute ya ha sido registrado.',
@@ -44,6 +46,7 @@ class UserController extends Controller
             'password.required' => 'El campo :attribute es requerido.',
         ];
         $request->validate([
+            'document' => 'required|unique:users',
             'nickname' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
@@ -93,12 +96,14 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $messages = [
+            'document.required' => 'El campo :attribute es requerido',
             'nickname.required' => 'El campo :attribute es requerido.',
             'email.required' => 'El campo :attribute es requerido.',
             'email.email' => 'El campo :attribute debe ser un correo.',
             'password.required' => 'El campo :attribute es requerido.',
         ];
         $request->validate([
+            'document' => 'required',
             'nickname' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -110,7 +115,7 @@ class UserController extends Controller
         
         if ($guardo) {
             $roles = $request->idRol;
-            $user->Rol()->sync($roles);
+            $user->rols()->sync($roles);
             
             $mensaje = [
                 'icon' => 'success',

@@ -29,6 +29,10 @@ $(function () {
           debug: true,
           ignore: ignorar, 
           rules: {
+            document:{
+                required: true,
+                unique:true
+            },
             nickname: {
                 required: true
             },
@@ -41,6 +45,10 @@ $(function () {
             }
         },
         messages: {
+            document:{
+                required: "El campo es requerido.",
+                unique: "Este documento ya esta registrado"
+            },
             nickname: {
                 required: "El campo es requerido."
             },
@@ -64,7 +72,7 @@ $(function () {
           $(element).siblings('.invalid-feedback ').removeClass('has-error').addClass('has-info');
           $(element).removeClass('has-error').addClass('has-info');
 
-          $(element).siblings('.invalid-feedback ').find('.input-clase').html('');
+          $(element).siblings('.invalid-feedback ').html('');
         }    
       });
   }
