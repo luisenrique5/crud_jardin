@@ -31,23 +31,23 @@ $(function () {
           rules: {
             document:{
                 required: true,
-                unique:true
             },
             nickname: {
-                required: true
+                required: true,
+                minlength: 2
             },
             email: {
                 required: true,
                 email: true
             },
             password: {
-                required: true
+                required: true,
+                minlength: 8
             }
         },
         messages: {
             document:{
-                required: "El campo es requerido.",
-                unique: "Este documento ya esta registrado"
+                required: "El campo es requerido."
             },
             nickname: {
                 required: "El campo es requerido."
@@ -57,7 +57,8 @@ $(function () {
                 email: "El campo debe ser un correo."
             },
             password: {
-                required: "El campo es requerido."
+                required: "El campo es requerido.",
+                minlength: "El campo debe tener como mínimo 8 caracteres"
             }
         },
         errorPlacement : function(error, element) {
